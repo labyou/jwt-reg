@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import Me from "./components/Me";
 import "./App.css";
 import api from './service/service'
 
@@ -41,7 +42,9 @@ function App() {
 							setErrorMessage((res.data.message).toLowerCase());
 						}
 					});
-					break;
+                    break;
+                default:
+                    break;
 			}
 		} catch (error) {
 			console.error(error)
@@ -50,7 +53,7 @@ function App() {
 	useEffect(() => {
 		(async () => {
 			let access_token = localStorage.getItem("access_token");
-			if (access_token) {
+			if (access_token !== undefined) {
 				try {
 					const res = await api.me();
 					setLogStatus(true);
@@ -61,7 +64,7 @@ function App() {
 				}
 			}
 		})();
-	}, [window]);
+	});
 
 	return (
 		<Router>
