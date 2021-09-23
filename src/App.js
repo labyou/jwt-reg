@@ -8,11 +8,12 @@ import api from './service/service'
 function App() {
 	const [userData, setUserData] = useState({});
 	const [logStatus, setLogStatus] = useState(false)
-	const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    console.log(logStatus)
 
-	const handleChange = (e) => {
-		setUserData({ ...userData, [e.target.type]: e.target.value})
-	}
+    const handleChange = (e) => {
+        setUserData({ ...userData, [e.target.type]: e.target.value });
+    }
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -53,7 +54,7 @@ function App() {
 	useEffect(() => {
 		(async () => {
 			let access_token = localStorage.getItem("access_token");
-			if (access_token !== undefined) {
+			if (access_token) {
 				try {
 					const res = await api.me();
 					setLogStatus(true);
@@ -63,7 +64,7 @@ function App() {
 					alert(error.response.data.error);
 				}
 			}
-		})();
+        })()
 	});
 
 	return (
